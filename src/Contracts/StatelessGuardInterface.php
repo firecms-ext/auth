@@ -11,47 +11,50 @@ declare(strict_types=1);
  */
 namespace FirecmsExt\Auth\Contracts;
 
+use FirecmsExt\Jwt\Jwt;
+
+/**
+ * Token 登录接口.
+ */
 interface StatelessGuardInterface extends GuardInterface
 {
     /**
-     * Attempt to authenticate the user using the given credentials and return the token.
+     * 尝试使用给定的凭证对用户进行身份验证。
      */
     public function attempt(array $credentials = []): bool;
 
     /**
-     * Log a user into the application without sessions or cookies.
+     * 将用户登录到没有会话或cookie的应用程序。
      */
     public function once(array $credentials = []): bool;
 
     /**
-     * Log a user into the application, create a token for the user.
+     * 将用户登录到应用程序中，为用户创建一个令牌。
      */
     public function login(AuthenticateInterface $user): bool;
 
     /**
-     * Log the given user ID into the application.
-     *
-     * @return false|mixed
+     * 将给定的用户ID记录到应用程序中。
      */
-    public function loginUsingId(int|string $id): mixed;
+    public function loginUsingId(int|string $id): bool;
 
     /**
-     * Log the given user ID into the application without sessions or cookies.
+     * 将给定的用户ID记录到应用程序中，而不需要会话或cookie。
      */
     public function onceUsingId(int|string $id): bool;
 
     /**
-     * Log the user out of the application, thus invalidating the token.
+     * 将用户注销出应用程序，从而使令牌失效。
      */
-    public function logout(bool $forceForever = false);
+    public function logout(bool $forceForever = false): void;
 
     /**
-     * Refresh the token.
+     * 刷新令牌。
      */
-    public function refresh(bool $forceForever = false): mixed;
+    public function refresh(bool $forceForever = false): ?string;
 
     /**
-     * Invalidate the token.
+     * 令牌失效。
      */
-    public function invalidate(bool $forceForever = false): mixed;
+    public function invalidate(bool $forceForever = false): Jwt;
 }

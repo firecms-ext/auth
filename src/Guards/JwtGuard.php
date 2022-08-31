@@ -18,6 +18,9 @@ use FirecmsExt\Auth\Contracts\UserProviderInterface;
 use FirecmsExt\Auth\EventHelpers;
 use FirecmsExt\Auth\GuardHelpers;
 use FirecmsExt\Jwt\Exceptions\JwtException;
+use FirecmsExt\Jwt\Exceptions\TokenBlacklistedException;
+use FirecmsExt\Jwt\Exceptions\TokenExpiredException;
+use FirecmsExt\Jwt\Exceptions\TokenInvalidException;
 use FirecmsExt\Jwt\Exceptions\UserNotDefinedException;
 use FirecmsExt\Jwt\Jwt;
 use FirecmsExt\Jwt\JwtFactory;
@@ -25,7 +28,9 @@ use FirecmsExt\Jwt\Payload;
 use FirecmsExt\Jwt\Token;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\Macroable\Macroable;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 class JwtGuard implements StatelessGuardInterface
@@ -164,7 +169,7 @@ class JwtGuard implements StatelessGuardInterface
 
         $this->dispatchLoginEvent($user);
 
-        return $token;
+        return (bool) $token;
     }
 
     /**
@@ -181,8 +186,13 @@ class JwtGuard implements StatelessGuardInterface
 
     /**
      * @throws JwtException
+     * @throws TokenBlacklistedException
+     * @throws TokenExpiredException
+     * @throws TokenInvalidException
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
-    public function logout(bool $forceForever = false)
+    public function logout(bool $forceForever = false): void
     {
         $user = $this->user();
 
@@ -194,18 +204,12 @@ class JwtGuard implements StatelessGuardInterface
         $this->jwt->unsetToken();
     }
 
-    /**
-     * @throws JwtException
-     */
-    public function refresh(bool $forceForever = false): mixed
+    public function refresh(bool $forceForever = false): ?string
     {
         return $this->requireToken()->refresh($forceForever);
     }
 
-    /**
-     * @throws JwtException
-     */
-    public function invalidate(bool $forceForever = false): mixed
+    public function invalidate(bool $forceForever = false): Jwt
     {
         return $this->requireToken()->invalidate($forceForever);
     }

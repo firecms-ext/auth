@@ -11,43 +11,43 @@ declare(strict_types=1);
  */
 namespace FirecmsExt\Auth\Contracts;
 
+/**
+ * Session 登录接口.
+ */
 interface StatefulGuardInterface extends GuardInterface
 {
     /**
-     * Attempt to authenticate a user using the given credentials.
-     * @return bool|mixed
+     * 尝试使用给定的凭证对用户进行身份验证。
      */
-    public function attempt(array $credentials = [], bool $remember = false): mixed;
+    public function attempt(array $credentials = [], bool $remember = false): bool;
 
     /**
-     * Log a user into the application without sessions or cookies.
+     * 将用户登录到没有会话或cookie的应用程序。
      */
     public function once(array $credentials = []): bool;
 
     /**
-     * Log a user into the application.
-     *
-     * @return mixed|void
+     * 将用户登录到应用程序中。
      */
-    public function login(AuthenticateInterface $user, bool $remember = false);
+    public function login(AuthenticateInterface $user, bool $remember = false): bool;
 
     /**
-     * Log the given user ID into the application.
+     * 将给定的用户ID记录到应用程序中。
      */
-    public function loginUsingId(string|int $id, bool $remember = false): ?AuthenticateInterface;
+    public function loginUsingId(string|int $id, bool $remember = false): bool;
 
     /**
-     * Log the given user ID into the application without sessions or cookies.
+     * 将给定的用户ID记录到应用程序中，而不需要会话或cookie。
      */
-    public function onceUsingId(string|int $id): bool|AuthenticateInterface;
+    public function onceUsingId(string|int $id): bool;
 
     /**
-     * Determine if the user was authenticated via "remember me" cookie.
+     * 确定用户是否通过“remember me” cookie 进行身份验证。
      */
     public function viaRemember(): bool;
 
     /**
-     * Log the user out of the application.
+     * 将用户退出应用程序。
      */
     public function logout(): void;
 }

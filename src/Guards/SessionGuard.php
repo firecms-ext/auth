@@ -178,12 +178,12 @@ class SessionGuard implements StatefulGuardInterface, SupportsBasicAuthInterface
      *
      * @param mixed $id
      */
-    public function onceUsingId($id): AuthenticateInterface|false
+    public function onceUsingId($id): bool
     {
         if (! is_null($user = $this->provider->retrieveById($id))) {
             $this->setUser($user);
 
-            return $user;
+            return true;
         }
 
         return false;
@@ -263,21 +263,21 @@ class SessionGuard implements StatefulGuardInterface, SupportsBasicAuthInterface
      *
      * @param mixed $id
      */
-    public function loginUsingId($id, bool $remember = false): ?AuthenticateInterface
+    public function loginUsingId($id, bool $remember = false): bool
     {
         if (! is_null($user = $this->provider->retrieveById($id))) {
             $this->login($user, $remember);
 
-            return $user;
+            return true;
         }
 
-        return null;
+        return false;
     }
 
     /**
      * Log a user into the application.
      */
-    public function login(AuthenticateInterface $user, bool $remember = false)
+    public function login(AuthenticateInterface $user, bool $remember = false): bool
     {
         $this->updateSession($user->getAuthIdentifier());
 
@@ -296,6 +296,8 @@ class SessionGuard implements StatefulGuardInterface, SupportsBasicAuthInterface
         $this->dispatchLoginEvent($user, $remember);
 
         $this->setUser($user);
+
+        return true;
     }
 
     /**
