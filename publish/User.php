@@ -69,8 +69,6 @@ class User extends Model implements AuthenticateInterface, CacheableInterface, J
 
     /**
      * 设置密码
-     * @param mixed $value
-     * @return void
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -101,5 +99,4 @@ class User extends Model implements AuthenticateInterface, CacheableInterface, J
             'guard' => 'api',
         ];
     }
-
 }

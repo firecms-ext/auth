@@ -51,7 +51,7 @@ class JwtGuard implements StatelessGuardInterface
      */
     protected ?AuthenticateInterface $lastAttempted;
 
-    protected \Hyperf\Contract\ContainerInterface $container;
+    protected ContainerInterface $container;
 
     protected Jwt $jwt;
 
@@ -63,14 +63,13 @@ class JwtGuard implements StatelessGuardInterface
      * Instantiate the class.
      */
     public function __construct(
-        ContainerInterface       $container,
-        RequestInterface         $request,
-        JwtFactory               $jwtFactory,
+        ContainerInterface $container,
+        RequestInterface $request,
+        JwtFactory $jwtFactory,
         EventDispatcherInterface $eventDispatcher,
-        UserProviderInterface    $provider,
-        string                   $name
-    )
-    {
+        UserProviderInterface $provider,
+        string $name
+    ) {
         $this->container = $container;
         $this->request = $request;
         $this->jwt = $jwtFactory->make();
@@ -82,8 +81,8 @@ class JwtGuard implements StatelessGuardInterface
     /**
      * Magically call the JWT instance.
      *
-     * @return mixed
      * @throws BadMethodCallException
+     * @return mixed
      */
     public function __call(string $method, array $parameters)
     {
@@ -219,9 +218,7 @@ class JwtGuard implements StatelessGuardInterface
     }
 
     /**
-     * 刷新令牌
-     * @param bool $forceForever
-     * @return string|null
+     * 刷新令牌.
      * @throws ContainerExceptionInterface
      * @throws JwtException
      * @throws NotFoundExceptionInterface
@@ -235,9 +232,7 @@ class JwtGuard implements StatelessGuardInterface
     }
 
     /**
-     * 失效
-     * @param bool $forceForever
-     * @return Jwt
+     * 失效.
      * @throws ContainerExceptionInterface
      * @throws JwtException
      * @throws NotFoundExceptionInterface
