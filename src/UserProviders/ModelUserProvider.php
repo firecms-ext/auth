@@ -13,7 +13,7 @@ namespace FirecmsExt\Auth\UserProviders;
 
 use FirecmsExt\Auth\Contracts\AuthenticateInterface;
 use FirecmsExt\Auth\Contracts\UserProviderInterface;
-use FirecmsExt\Hashing\Contract\DriverInterface as HashedInterface;
+use FirecmsExt\Hashing\Contract\DriverInterface;
 use FirecmsExt\Hashing\Contract\HashInterface;
 use Hyperf\Utils\Contracts\Arrayable;
 use Hyperf\Utils\Str;
@@ -23,7 +23,7 @@ class ModelUserProvider implements UserProviderInterface
     /**
      * The hashed implementation.
      */
-    protected HashInterface $hasher;
+    protected DriverInterface $hasher;
 
     /**
      * The Eloquent user model.
@@ -36,9 +36,8 @@ class ModelUserProvider implements UserProviderInterface
     public function __construct(HashInterface $hash, array $options)
     {
         $this->model = $options['model'] ?? null;
-        $this->hasher = ($hasher = $options['hash_driver'] ?? null) instanceof HashedInterface
-            ? $hasher
-            : $hash->getDriver($hasher);
+        $this->hasher = ($hasher = $options['hash_driver'] ?? null) instanceof DriverInterface
+            ? $hasher : $hash->getDriver($hasher);
     }
 
     /**
