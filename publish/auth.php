@@ -9,6 +9,10 @@ declare(strict_types=1);
  * @contact  zhimengxingyun@klmis.cn
  * @license  https://github.com/firecms-ext/auth/blob/master/LICENSE
  */
+use App\Model\User;
+use FirecmsExt\Auth\Passwords\DatabaseTokenRepository;
+use FirecmsExt\Auth\UserProviders\ModelUserProvider;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -43,12 +47,12 @@ return [
 
     'guards' => [
         'api' => [
-            'driver' => \HyperfExt\Auth\Guards\JwtGuard::class,
+            'driver' => \FirecmsExt\Auth\Guards\JwtGuard::class,
             'provider' => 'users',
             'options' => [],
         ],
         'web' => [
-            'driver' => \HyperfExt\Auth\Guards\SessionGuard::class,
+            'driver' => \FirecmsExt\Auth\Guards\SessionGuard::class,
             'provider' => 'users',
             'options' => [],
         ],
@@ -71,9 +75,9 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => \HyperfExt\Auth\UserProviders\ModelUserProvider::class,
+            'driver' => ModelUserProvider::class,
             'options' => [
-                'model' => \App\Model\User::class,
+                'model' => User::class,
                 'hash_driver' => 'bcrypt',
             ],
         ],
@@ -105,7 +109,7 @@ return [
 
     'passwords' => [
         'users' => [
-            'driver' => \HyperfExt\Auth\Passwords\DatabaseTokenRepository::class,
+            'driver' => DatabaseTokenRepository::class,
             'provider' => 'users',
             'options' => [
                 'connection' => null,

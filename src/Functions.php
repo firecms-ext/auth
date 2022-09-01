@@ -23,6 +23,16 @@ if (! function_exists('auth')) {
     }
 }
 
+if (! function_exists('attempt')) {
+    /**
+     * 用户登录.
+     */
+    function attempt(array $credentials, ?string $guard = null): bool
+    {
+        return auth($guard)->attempt($credentials);
+    }
+}
+
 if (! function_exists('login')) {
     /**
      * 用户登录.

@@ -26,7 +26,7 @@ use Hyperf\Di\Exception\Exception;
  */
 class AuthAspect extends AbstractAspect
 {
-    public array $annotations = [
+    public $annotations = [
         Auth::class,
     ];
 
