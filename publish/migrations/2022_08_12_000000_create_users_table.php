@@ -33,7 +33,7 @@ class CreateUsersTable extends Migration
             $table->dateTime('updated_at')->comment('更新时间')->nullable();
             $table->dateTime('deleted_at')->comment('删除时间')->nullable();
 
-            $table->comment('系统-用户表');
+            $table->comment('用户表');
         });
     }
 

@@ -27,8 +27,6 @@ class AuthenticationException extends Exception
 
     /**
      * Create a new authentication exception.
-     *
-     * @param null|string $redirectTo
      */
     public function __construct(string $message = 'Unauthenticated.', array $guards = [], ?string $redirectTo = null)
     {

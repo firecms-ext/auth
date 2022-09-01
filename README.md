@@ -23,3 +23,15 @@ php bin/hyperf.php gen:jwt-keypair
 php bin/hyperf.php gen:jwt-secret
 
 ```
+# 函数列表
+
+```php
+# 认证助手
+function auth(?string $guard = null): GuardInterface
+# 用户登录
+function attempt(array $credentials, ?string $guard = null): bool
+# 用户登录
+function login(AuthenticateInterface $user, ?string $guard = null): bool
+# 注销登录
+function logout(): void
+```
