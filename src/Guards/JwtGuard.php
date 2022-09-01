@@ -49,7 +49,7 @@ class JwtGuard implements StatelessGuardInterface
     /**
      * The user we last attempted to retrieve.
      */
-    protected AuthenticateInterface $lastAttempted;
+    protected ?AuthenticateInterface $lastAttempted;
 
     protected \Hyperf\Contract\ContainerInterface $container;
 
@@ -63,13 +63,14 @@ class JwtGuard implements StatelessGuardInterface
      * Instantiate the class.
      */
     public function __construct(
-        ContainerInterface $container,
-        RequestInterface $request,
-        JwtFactory $jwtFactory,
+        ContainerInterface       $container,
+        RequestInterface         $request,
+        JwtFactory               $jwtFactory,
         EventDispatcherInterface $eventDispatcher,
-        UserProviderInterface $provider,
-        string $name
-    ) {
+        UserProviderInterface    $provider,
+        string                   $name
+    )
+    {
         $this->container = $container;
         $this->request = $request;
         $this->jwt = $jwtFactory->make();
@@ -81,8 +82,8 @@ class JwtGuard implements StatelessGuardInterface
     /**
      * Magically call the JWT instance.
      *
-     * @throws BadMethodCallException
      * @return mixed
+     * @throws BadMethodCallException
      */
     public function __call(string $method, array $parameters)
     {
@@ -131,7 +132,7 @@ class JwtGuard implements StatelessGuardInterface
 
     public function validate(array $credentials = []): bool
     {
-        return (bool) $this->attempt($credentials, false);
+        return $this->attempt($credentials);
     }
 
     public function attempt(array $credentials = []): bool
@@ -162,6 +163,13 @@ class JwtGuard implements StatelessGuardInterface
         return false;
     }
 
+    /**
+     * 用户登录.
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws TokenExpiredException
+     * @throws TokenInvalidException
+     */
     public function login(AuthenticateInterface $user): bool
     {
         $token = $this->jwt->fromUser($user);
@@ -173,6 +181,11 @@ class JwtGuard implements StatelessGuardInterface
     }
 
     /**
+     * 用户ID登录.
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws TokenExpiredException
+     * @throws TokenInvalidException
      * @throws UserNotDefinedException
      */
     public function loginUsingId(int|string $id): bool
@@ -185,6 +198,7 @@ class JwtGuard implements StatelessGuardInterface
     }
 
     /**
+     * 注销登录.
      * @throws JwtException
      * @throws TokenBlacklistedException
      * @throws TokenExpiredException
@@ -204,17 +218,40 @@ class JwtGuard implements StatelessGuardInterface
         $this->jwt->unsetToken();
     }
 
+    /**
+     * 刷新令牌
+     * @param bool $forceForever
+     * @return string|null
+     * @throws ContainerExceptionInterface
+     * @throws JwtException
+     * @throws NotFoundExceptionInterface
+     * @throws TokenBlacklistedException
+     * @throws TokenExpiredException
+     * @throws TokenInvalidException
+     */
     public function refresh(bool $forceForever = false): ?string
     {
         return $this->requireToken()->refresh($forceForever);
     }
 
+    /**
+     * 失效
+     * @param bool $forceForever
+     * @return Jwt
+     * @throws ContainerExceptionInterface
+     * @throws JwtException
+     * @throws NotFoundExceptionInterface
+     * @throws TokenBlacklistedException
+     * @throws TokenExpiredException
+     * @throws TokenInvalidException
+     */
     public function invalidate(bool $forceForever = false): Jwt
     {
         return $this->requireToken()->invalidate($forceForever);
     }
 
     /**
+     * 用户ID登录 单次
      * Log the given User into the application.
      */
     public function onceUsingId(int|string $id): bool

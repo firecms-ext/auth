@@ -15,6 +15,7 @@ use FirecmsExt\Auth\Contracts\AuthenticateInterface;
 use FirecmsExt\Auth\Contracts\UserProviderInterface;
 use FirecmsExt\Hashing\Contract\DriverInterface;
 use FirecmsExt\Hashing\Contract\HashInterface;
+use Hyperf\Database\Model\Builder;
 use Hyperf\Utils\Contracts\Arrayable;
 use Hyperf\Utils\Str;
 

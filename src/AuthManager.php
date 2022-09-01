@@ -15,6 +15,7 @@ use Closure;
 use FirecmsExt\Auth\Contracts\AuthManagerInterface;
 use FirecmsExt\Auth\Contracts\GuardInterface;
 use FirecmsExt\Auth\Contracts\StatefulGuardInterface;
+use FirecmsExt\Auth\Contracts\StatelessGuardInterface;
 use FirecmsExt\Auth\Contracts\UserProviderInterface;
 use FirecmsExt\Auth\Events\AuthManagerResolved;
 use Hyperf\Contract\ConfigInterface;
@@ -141,12 +142,11 @@ class AuthManager implements AuthManagerInterface
 
     /**
      * Resolve the given guard.
-     *@throws InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    protected function resolve(string $name): StatefulGuardInterface
+    protected function resolve(string $name): StatefulGuardInterface|StatelessGuardInterface
     {
         $config = $this->getConfig($name);
-
         if (empty($config)) {
             throw new InvalidArgumentException("Auth guard [{$name}] is not defined.");
         }
