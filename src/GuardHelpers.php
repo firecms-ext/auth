@@ -23,7 +23,7 @@ trait GuardHelpers
     /**
      * The currently authenticated user.
      */
-    protected AuthenticateInterface|null $user;
+    protected ?AuthenticateInterface $user = null;
 
     /**
      * The user provider implementation.
