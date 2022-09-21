@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * This file is part of FirecmsExt Auth.
  *
@@ -9,15 +10,17 @@ declare(strict_types=1);
  * @contact  zhimengxingyun@klmis.cn
  * @license  https://github.com/firecms-ext/auth/blob/master/LICENSE
  */
+
 use FirecmsExt\Auth\Contracts\AuthenticateInterface;
 use FirecmsExt\Auth\Contracts\AuthManagerInterface;
-use FirecmsExt\Auth\Contracts\GuardInterface;
+use FirecmsExt\Auth\Contracts\StatefulGuardInterface;
+use FirecmsExt\Auth\Contracts\StatelessGuardInterface;
 
 if (! function_exists('auth')) {
     /**
      * 认证助手.
      */
-    function auth(?string $guard = null): GuardInterface
+    function auth(?string $guard = null): StatefulGuardInterface|StatelessGuardInterface
     {
         return make(AuthManagerInterface::class)->guard($guard);
     }
