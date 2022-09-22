@@ -31,7 +31,7 @@ trait Authenticate
      */
     public function getAuthIdentifier(): ?string
     {
-        return $this->{$this->getAuthIdentifierName()};
+        return (string) $this->{$this->getAuthIdentifierName()};
     }
 
     /**

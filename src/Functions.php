@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 /**
  * This file is part of FirecmsExt Auth.
  *
@@ -10,11 +9,11 @@ declare(strict_types=1);
  * @contact  zhimengxingyun@klmis.cn
  * @license  https://github.com/firecms-ext/auth/blob/master/LICENSE
  */
-
 use FirecmsExt\Auth\Contracts\AuthenticateInterface;
 use FirecmsExt\Auth\Contracts\AuthManagerInterface;
 use FirecmsExt\Auth\Contracts\StatefulGuardInterface;
 use FirecmsExt\Auth\Contracts\StatelessGuardInterface;
+use Hyperf\Utils\ApplicationContext;
 
 if (! function_exists('auth')) {
     /**
@@ -22,7 +21,9 @@ if (! function_exists('auth')) {
      */
     function auth(?string $guard = null): StatefulGuardInterface|StatelessGuardInterface
     {
-        return make(AuthManagerInterface::class)->guard($guard);
+        return ApplicationContext::getContainer()
+            ->get(AuthManagerInterface::class)
+            ->guard($guard);
     }
 }
 
