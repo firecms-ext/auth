@@ -73,7 +73,7 @@ class GenericUser implements UserContract
     /**
      * Get the unique identifier for the user.
      */
-    public function getAuthIdentifier(): int|string|null
+    public function getAuthIdentifier(): ?string
     {
         return $this->attributes[$this->getAuthIdentifierName()];
     }

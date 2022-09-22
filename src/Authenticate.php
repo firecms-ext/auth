@@ -29,7 +29,7 @@ trait Authenticate
     /**
      * Get the unique identifier for the user.
      */
-    public function getAuthIdentifier(): string|int
+    public function getAuthIdentifier(): ?string
     {
         return $this->{$this->getAuthIdentifierName()};
     }

@@ -21,7 +21,7 @@ interface AuthenticateInterface
     /**
      * Get the unique identifier for the user.
      */
-    public function getAuthIdentifier(): int|string|null;
+    public function getAuthIdentifier(): ?string;
 
     /**
      * Get the password for the user.
