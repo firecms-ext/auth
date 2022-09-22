@@ -285,6 +285,8 @@ class JwtGuard implements StatelessGuardInterface
     /**
      * Set the token.
      *
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      * @return $this
      */
     public function setToken(Token|string $token): static

@@ -50,8 +50,8 @@ if (! function_exists('logout')) {
     /**
      * 注销登录.
      */
-    function logout(): void
+    function logout(?string $guard = null): void
     {
-        auth()->logout();
+        auth($guard)->logout();
     }
 }

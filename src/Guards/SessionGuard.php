@@ -146,7 +146,7 @@ class SessionGuard implements StatefulGuardInterface, SupportsBasicAuthInterface
     /**
      * Get the ID for the currently authenticated user.
      */
-    public function id(): null|int|string
+    public function id(): ?string
     {
         if ($this->loggedOut) {
             return null;

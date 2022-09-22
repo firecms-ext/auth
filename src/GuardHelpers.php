@@ -71,7 +71,7 @@ trait GuardHelpers
     /**
      * Get the ID for the currently authenticated user.
      */
-    public function id(): int|string|null
+    public function id(): ?string
     {
         if ($this->user()) {
             return $this->user()->getAuthIdentifier();
