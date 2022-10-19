@@ -26,9 +26,10 @@
   },
   "require": {
     "php": ">=8.0",
-    "hyperf/framework": "~v2.0",
-    "hyperf/di": "~v2.0",
+    "firecms-ext/hashing": "*",
     "hyperf/db-connection": "~v2.0",
+    "hyperf/di": "~v2.0",
+    "hyperf/framework": "~v2.0",
     "hyperf/http-message": "~v2.0",
     "hyperf/http-server": "~v2.0",
     "hyperf/model-cache": "~v2.0",
