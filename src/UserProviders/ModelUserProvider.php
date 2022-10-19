@@ -9,7 +9,6 @@ declare(strict_types=1);
  * @contact  zhimengxingyun@klmis.cn
  * @license  https://github.com/firecms-ext/auth/blob/master/LICENSE
  */
-
 namespace FirecmsExt\Auth\UserProviders;
 
 use FirecmsExt\Auth\Contracts\AuthenticateInterface;
@@ -68,7 +67,7 @@ class ModelUserProvider implements UserProviderInterface
             $identifier
         )->first();
 
-        if (!$retrievedModel) {
+        if (! $retrievedModel) {
             return null;
         }
 

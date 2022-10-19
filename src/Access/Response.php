@@ -100,8 +100,8 @@ class Response implements Arrayable
     /**
      * Throw authorization exception if response was denied.
      *
-     * @throws AuthorizationException
      * @return $this
+     * @throws AuthorizationException
      */
     public function authorize(): Response
     {

@@ -81,8 +81,8 @@ class JwtGuard implements StatelessGuardInterface
     /**
      * Magically call the JWT instance.
      *
-     * @throws BadMethodCallException
      * @return mixed
+     * @throws BadMethodCallException
      */
     public function __call(string $method, array $parameters)
     {
@@ -285,9 +285,9 @@ class JwtGuard implements StatelessGuardInterface
     /**
      * Set the token.
      *
+     * @return $this
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
-     * @return $this
      */
     public function setToken(Token|string $token): static
     {

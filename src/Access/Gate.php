@@ -116,8 +116,8 @@ class Gate implements GateInterface
     /**
      * Define a new ability.
      *
-     * @throws InvalidArgumentException
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function define(string $ability, callable|string $callback): static
     {
@@ -623,8 +623,8 @@ class Gate implements GateInterface
     /**
      * Call the "before" method on the given policy, if applicable.
      *
-     * @throws ReflectionException
      * @return mixed|void
+     * @throws ReflectionException
      */
     protected function callPolicyBefore(mixed $policy, ?AuthenticateInterface $user, string $ability, array $arguments)
     {
@@ -640,8 +640,8 @@ class Gate implements GateInterface
     /**
      * Call the appropriate method on the given policy.
      *
-     * @throws ReflectionException
      * @return mixed|void
+     * @throws ReflectionException
      */
     protected function callPolicyMethod(mixed $policy, string $method, ?AuthenticateInterface $user, array $arguments)
     {
